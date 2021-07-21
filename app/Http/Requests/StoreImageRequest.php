@@ -27,7 +27,6 @@ class StoreImageRequest extends FormRequest
         return [
             'title' => ['required', 'min:3'],
             'description' => ['required'],
-            'file' => ['required'],
             'item_id' => ['required', 'numeric'],
         ];
     }

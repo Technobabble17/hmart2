@@ -27,7 +27,6 @@ class StoreItemRequest extends FormRequest
         return [
             'title' => ['required', 'min:3'],
             'description' => ['required'],
-            'status' => ['nullable'],
             'price' => ['required'],
         ];
     }

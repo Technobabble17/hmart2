@@ -15,8 +15,7 @@ class BrowseController extends Controller
     public function index()
     {
         $items = Item::withoutGlobalScope(OwnedByUser::class)->get();
-        //$posts = Post::all();
-        return view('browse.index', ["items" => $items]);
+        return view('items.index', ["items" => $items]);
     }
 
     /**
@@ -25,10 +24,10 @@ class BrowseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($item)
     {
-        $item = Item::withoutGlobalScope(OwnedByUser::class)->findOrFail($id);
-        return view('browse.show', ["item" => $item]);
+        $item = Item::withoutGlobalScope(OwnedByUser::class)->findOrFail($item);
+        return view('items.show', ["item" => $item]);
     }
 
 }

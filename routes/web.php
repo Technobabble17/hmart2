@@ -19,11 +19,10 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::resource('/browse', BrowseController::class)->only(['index', 'show']);
-
 Route::middleware('auth')->group(function()
 {
     Route::resource('user', UserController::class);
-     Route::resource('items', ItemController::class);
-     Route::resource('images', ImageController::class);
-     Route::resource('items.images', ItemImagesController::class);
+    Route::resource('items', ItemController::class);
+    Route::resource('images', ImageController::class);
+    Route::resource('items.images', ItemImagesController::class);
 });

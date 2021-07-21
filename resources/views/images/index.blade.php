@@ -14,8 +14,8 @@
                     <h2 class="text-2xl bold pb-4">{{ $image->title }}</h2>
                     <p class="text-lg pb-4">{{ $image->description }}</p>
                     <img src="{{$image->url}}" alt="Image" class="max-h-32"/><br>
-                    <x-element.delete route-key="image" label="Delete Image" route-name="images.destroy" :id="$image->id"/> {{-- the : says we are passing native php--}}
-                    <a class="text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition duration-300 ease-in-out" href="{{ route('images.edit',['image'=> $image->id]) }}">| Edit Image</a>
+                    <a class="text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition duration-300 ease-in-out" href="{{ route('images.edit',['image'=> $image->id]) }}">Edit Image</a>
+                    <x-element.delete class="float-right" route-key="image" label="Delete Image" route-name="images.destroy" :id="$image->id"/> {{-- the : says we are passing native php--}}
                 </article>
             </div>
             @endforeach

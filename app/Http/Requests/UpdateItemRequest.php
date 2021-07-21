@@ -12,7 +12,6 @@ class UpdateItemRequest extends StoreItemRequest
     public function rules()
     {
         $rules = parent::rules();
-        $rules['content'] = ['required', 'min:5'];
         return $rules;
     }
 }
