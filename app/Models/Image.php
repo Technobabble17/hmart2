@@ -6,9 +6,12 @@ use App\Scopes\OwnedByUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
+
 class Image extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
+
     protected $fillable = ['title', 'description', 'path', 'item_id'];
     protected static function booted()
     {

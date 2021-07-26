@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
-use App\Http\Requests\StoreImageRequest;
-use App\Http\Requests\UpdateImageRequest;
+use App\Models\Comment;
+use App\Models\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
-
-class ImageController extends Controller
+class MessageCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +15,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all(); //this returns a collection
-        //$images = Storage::disk('public')->url($path); //
-        return view('images.index', ["images" => $images]);
+        //
     }
 
     /**
@@ -31,8 +25,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        return view('images.create');
-
+        //
     }
 
     /**
@@ -41,13 +34,13 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreImageRequest $request)
+    public function store(Request $request, Message $message)
     {
-        $user = \App\Models\User::find(Auth::user()->id);
-        $data = $request->only("title", "description", "item_id");
-        $data['path'] = Storage::disk('public')->putFile('images', $request->file('file'));
-        $user->images()->create($data);
-        return redirect(route('images.index'));
+        $comment = new Comment();
+        $comment->comment = $request->get('comment');
+        $comment->message_id = $message->id;
+        $message->save();
+        return redirect(route('messages.show', ['message' => $message->id]));
     }
 
     /**
@@ -67,9 +60,9 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Image $image)
+    public function edit($id)
     {
-        return view('images.edit', ["image" => $image]);
+        //
     }
 
     /**
@@ -79,21 +72,20 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateImageRequest $request, Image $image)
+    public function update(Request $request, $id)
     {
-        $data = $request->only("title", "description", "item_id");
-        $image-> update($data);
-        return redirect(route('images.index'));
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Message $message, Comment $comment)
     {
-         $image->delete();
-         return redirect(route('images.index'));
+        $comment->delete();
+        return redirect(route('messages.show', ['message' => $message->id]));
     }
 }

@@ -1,14 +1,52 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('All Items') }} {{--i18n https://laravel.com/docs/8.x/localization --}}
+            {{ __('Send Message to ' . $item) }}
         </h2>
-        <a class="text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition duration-300 ease-in-out" href="{{ route('items.create') }}">+ New Post</a>
     </x-slot>
-    <form method="post" action="{{ route('items.store') }}">
+    <form method="post" action="{{ route('messages.store') }}">
         {{ csrf_field() }}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{-- <h2 class="text-2xl bold pb-4">{{ $item->title }}</h2> --}}
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+
+
+
+
+
+
+
+
+
+            {{--
+
+    now the buyer is the MessageOwner
+    the ItemOwner sees all messages where OwnedByUser/Item status = pending
+    the buyer sees all messages where message=OwnedbyUser
+
+
+
+    display     Item title
+    Item price
+    Owner/seller name
+
+    google maps pickup location
+
+    comment/actual messages text
+
+    save Message = setItem status to pending
+
+
+
+
+
+    --}}
+
+
+
+
+            {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <label for="title" class="col-sm-3 col-form-label">Title</label>
                 <div class="p-6 bg-white border-b border-gray-200">
                     <textarea name="title" type="text" class="form-control" placeholder="Title">{{old('title')}}</textarea>
@@ -16,23 +54,26 @@
                 </div>
             </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <label for="description" class="col-sm-3 col-form-label">Description</label>
+                <label for="content" class="col-sm-3 col-form-label">Description</label>
                 <div class="p-6 bg-white border-b border-gray-200">
                     <textarea name="description" type="text" class="form-control" placeholder="Description">{{old('description')}}</textarea>
                     @error('description') <p style="color:red"> {{ $message }}</p>  @enderror
                 </div>
-            </div>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <label for="price" class="col-sm-3 col-form-label">Price</label>
+
+                <label for="file" class="col-sm-3 col-form-label">Image</label>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <textarea name="price" type="integer" class="form-control" placeholder="Price">{{old('price')}}</textarea>
-                    @error('price') <p style="color:red"> {{ $message }}</p>  @enderror
+                    <input name="file" type="file" class="form-control"></input>
+                    @error('file') <p style="color:red"> {{ $message }}</p>  @enderror
                 </div>
             </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-64">
-                <x-element.back/>
                 <x-element.save/>
-            </div>
+            </div> --}}
+
+
+        </div>
     </form>
+
+
 
 </x-app-layout>

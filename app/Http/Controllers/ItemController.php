@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
-use App\Models\Image;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-
 
 
 class ItemController extends Controller
@@ -91,5 +86,11 @@ class ItemController extends Controller
     {
         $item->delete();
         return redirect(route('items.index'));
+    }
+    public function search(Request $request)
+    {
+        $items = Item::search('title')->get();
+        dd($items);
+        return view('items.search', ['items' => $items]);
     }
 }

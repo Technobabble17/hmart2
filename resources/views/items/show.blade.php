@@ -11,33 +11,32 @@
         </h2>
         @endif
     </x-slot>
-
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-min mx-auto sm:px-6 lg:px-8">
             <div class="mb-8 bg-white overflow-hidden shadow-2xl sm:rounded-lg">
                 <article class="p-6 bg-gray-300 border-b border-gray-200">
                     <h2 class="text-2xl bold pb-4">{{ $item->title }}</h2>
-                    <p>{{ $item->description }}</p>
-                    <p>${{ ($item->price) }} Pennies</p>
+                    <p>{{ $item->description }}</p><br>
+                    <p>{{ $item->price }} USD</p>
                 </article>
-
                 <div class="mb-8 bg-white shadow-2xl sm:rounded-lg">
-                    <article class="mb-8 flex flex-auto p-6 bg-white border-b border-gray-200 hover:bg-gray-200 hover:shadow-inner transition duration-200 ease-in-out">
-                        @foreach ($item->images as $image ) {{--laravel magic is looking for images variable, if not how about function "is it a relationship function--yes images() in model--}}
+                    <article class="mb-8 grid justify-items-center p-6 bg-white border-b border-gray-200 hover:bg-gray-200 hover:shadow-inner transition duration-200 ease-in-out">
+                        @foreach ($item->images as $image )
                             <div class="grid justify-items-center p-8" >
                                 @if (Auth::check() && Auth::user()->id === $item->user_id)
 
-                                <div class="transform -translate-y-32 bg-gray-400" style="display:none" id="ImageData">
+                                <div class="bg-gray-400" style="display:none" id="ImageData">
                                     <h2 class="text-2xl bold pb-4">{{ $image->title }} </h2>
                                     <h2 class="text-xl bold pb-4">{{ $image->description }} </h2>
                                 </div>
                                 <img  src="{{$image->url}}" alt="Image" class="max-h-64 p-0 transform transition duration-300 hover:scale-150" onclick="ShowData()"/>
                                 <x-element.delete class="text-center" route-key="image" label="Delete Image" route-name="images.destroy" :id="$image->id"/>
                                 @else
-                                <img src="{{$image->url}}" alt="Image" class="max-h-64 p-0 transform transition duration-300 hover:scale-150"/>
+                                <img src="{{$image->url}}" alt="Image" class="max-h-64 p-0 transform transition duration-300 hover:scale-150" onclick="ShowData()"/>
                                 @endif
                             </div>
                         @endforeach
+                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCAamlGnq7plQ6sDUpO0U-kXwLO6UntYUQ&q=Space+Needle,Seattle+WA" frameborder="0" height="500" width="600"></iframe>
                     </article>
                     @if (Auth::check() && Auth::user()->id === $item->user_id)
                     <button class="rounded-lg text-white text-2xl col-sm-3 col-form-label cursor-pointer p-2 px-8 bg-blue-600 hover:bg-green-600 transition duration-200 ease-in-out" onclick="myFunction()">+ Add Image</button>
@@ -45,9 +44,9 @@
                     <x-element.delete class="float-right" route-key="item" label="Delete Item" route-name="items.destroy" :id="$item->id"/>
                     @else
                     <x-element.back/>
-                    <a class="animate-pulse rounded-lg text-white text-2xl col-sm-3 col-form-label cursor-pointer p-2 px-8 bg-blue-600 hover:bg-green-600 transition duration-200 ease-in-out" href="{{ URL::previous() }}">Purchase</a>
+                    <a class="animate-pulse rounded-lg text-white text-2xl col-sm-3 col-form-label cursor-pointer p-2 px-8 bg-blue-600 hover:bg-green-600 transition duration-200 ease-in-out" href="{{ route('messages.create', ['item'=> $item]) }}">Purchase</a>
                     @endif
-                    <div style="display:none" id="myDIV">
+                    <div style="display:none" id="myDIV"> {{--myFunction--}}
                         <form class="pt-40" method="post" action="{{ route('items.images.store', ['item' => $item->id]) }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

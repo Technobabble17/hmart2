@@ -16,7 +16,7 @@ class ItemImagesController extends Controller
      */
     public function index(Item $item)
     {
-        dd($item);
+   //
     }
 
     /**

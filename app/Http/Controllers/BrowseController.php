@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 use App\Scopes\OwnedByUser;
 
 class BrowseController extends Controller
@@ -14,7 +15,7 @@ class BrowseController extends Controller
      */
     public function index()
     {
-        $items = Item::withoutGlobalScope(OwnedByUser::class)->get();
+        $items = Item::withoutGlobalScope(OwnedByUser::class)->browse()->get();     //stores a query builder for the model in the variable/$itemsQuery  // browse() is calling the Item scopeBrowse()
         return view('items.index', ["items" => $items]);
     }
 

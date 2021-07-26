@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Image::class); //leading with backslash resolves to the root, always use this format
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class); //return $this->hasOne(Phone::class, 'foreign_key', 'local_key');
+    }
 }

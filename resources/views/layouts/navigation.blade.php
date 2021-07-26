@@ -27,8 +27,11 @@
                     <x-nav-link :href="route('items.index')" :active="request()->routeIs('item.*')">
                         {{ __('Items') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('images.index')" :active="request()->routeIs('images.*')">
+                    {{-- <x-nav-link :href="route('images.index')" :active="request()->routeIs('images.*')">
                         {{ __('Images') }}
+                    </x-nav-link> --}}
+                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('message.*')">
+                        {{ __('Messages') }}
                     </x-nav-link>
                     <x-nav-link :href="route('browse.index')" :active="request()->routeIs('browse.*')">
                         {{ __('Browse') }}

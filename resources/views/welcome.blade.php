@@ -20,14 +20,17 @@
             }
         </style>
     </head>
-    <body class="antialiased">
+    <body class="relative antialiased">
+        <div class="dark:bg-gray-900 justify-items-center">
+            <a href="/browse" class="grid justify-items-center text-5xl text-gray-500  border-4 underline">Browse</a>
+        </div>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
                     @else
-                        <a href="/browse" class="text-5xl text-gray-500 border-4 underline">Browse</a>
+
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
                         @if (Route::has('register'))
