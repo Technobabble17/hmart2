@@ -19,12 +19,14 @@ class Item extends Model
     {
         //static::addGlobalScope(new OwnedByUser);
     }
-    public function scopeBrowse($query, ?int $user_id = null)
+
+    public function scopeBrowse($query)
     {
-        if($user_id)
+        if(Auth::check())
         {
-            $query->where('user_id', '!=', $user_id);
+            $query->where('user_id', '!=', Auth::id());
         }
+
         return $query;
     }
 
@@ -36,7 +38,6 @@ class Item extends Model
         }
         return $query;
     }
-
 
     public function user()
     {

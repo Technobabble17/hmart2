@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\OwnedByUser;
@@ -13,12 +14,16 @@ use Illuminate\Database\Eloquent\Builder;
 abstract class AbstractItemController extends Controller  //can't load class directly only a child "abstract"
 {
     protected Builder $itemBuilder;
-    public function __construct()
-    {
-        $this->itemBuilder = $this->getItemBuilder();
-    }
-    abstract protected function getItemBuilder() : Builder;
 
+    public function __construct(User $user)
+    {
+        $this->middleware(function ($request, $next) {
+            $this->itemBuilder = $this->getItemBuilder();
+            return $next($request);
+        });
+    }
+
+    abstract protected function getItemBuilder() : Builder;
 
     /**
      * Display a listing of the resource.

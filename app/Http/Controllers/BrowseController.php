@@ -8,11 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class BrowseController extends AbstractItemController
 {
-
     protected function getItemBuilder() : Builder
     {
-        dd(Auth::id());
-        dd(Item::browse(Auth::id()));
         return Item::browse();
     }
 
