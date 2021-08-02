@@ -65,7 +65,8 @@ class Item extends Model
 
     public function setPriceAttribute($price)
     {
-        $this->attributes['price'] = Money::parse($price)->formatByDecimal()*100;
+        $nValue = is_numeric($price) ? '$' . $price : $price;
+        $this->attributes['price'] = Money::parse($nValue, 'USD')->formatByDecimal()*100;
     }
 
     public function toSearchableArray()

@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+
 use Cknow\Money\Money;
-use Money\Exception\ParserException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Money\Exception\ParserException;
 
 class StoreItemRequest extends FormRequest
 {
@@ -29,10 +30,11 @@ class StoreItemRequest extends FormRequest
         return [
             'title' => ['required', 'min:3'],
             'description' => ['required'],
-            'price' => ['required', function($attribute, $value, $fail){
-                try
-                {
-                    Money::parse($value);
+            'price' => ['required', function($attribute, $value, $fail) {
+                $nValue = is_numeric($value) ? '$' . $value : $value;
+
+                try {
+                    $money = Money::parse($nValue, 'USD');
                 }
                 catch(ParserException $e)
                 {
