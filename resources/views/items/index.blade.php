@@ -10,15 +10,29 @@
             {{ __('Browse') }}
         </h2>
         @endif
+
+
+        @if (request()->routeIs('items') || request()->routeIs('items.*'))
         <div class="flex flex-row-reverse col-md-4">
-            <form action="{{ route('items.search') }}" autocomplete="off" name="search" action="search" method="get">
+            <form action="{{ route('items.search') }}" autocomplete="off" name="search" method="get">
                 <div class="form-group">
                     <input type="search" name="search" class="form-control py-1 pt-2">
                     <button type="submit" class="rounded-lg text-white text-2xl col-sm-3 col-form-label cursor-pointer py-1 px-4 bg-blue-600 hover:bg-green-600 transition duration-200 ease-in-out">Search!</button>
                 </div>
             </form>
         </div>
+        @else
+        <div class="flex flex-row-reverse col-md-4">
+            <form action="{{ route('browse.search') }}" autocomplete="off" name="search" method="get">
+                <div class="form-group">
+                    <input type="search" name="search" class="form-control py-1 pt-2">
+                    <button type="submit" class="rounded-lg text-white text-2xl col-sm-3 col-form-label cursor-pointer py-1 px-4 bg-blue-600 hover:bg-green-600 transition duration-200 ease-in-out">Search!</button>
+                </div>
+            </form>
+        </div>
+        @endif
     </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

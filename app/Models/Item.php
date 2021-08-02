@@ -14,18 +14,25 @@ class Item extends Model
     use HasFactory;
     use Searchable;
 
-
-    public $fillable = ['title', 'description', 'status', 'price'];
+    protected $fillable = ['title', 'description', 'status', 'price'];
     protected static function booted()
     {
-        static::addGlobalScope(new OwnedByUser);
+        //static::addGlobalScope(new OwnedByUser);
+    }
+    public function scopeBrowse($query, ?int $user_id = null)
+    {
+        if($user_id)
+        {
+            $query->where('user_id', '!=', $user_id);
+        }
+        return $query;
     }
 
-    public function scopeBrowse($query)
+    public function scopeItems($query)
     {
         if(Auth::check())
         {
-            $query->where('user_id', '!=', Auth::id());
+            $query->where('user_id', '=', Auth::id());
         }
         return $query;
     }
@@ -67,6 +74,6 @@ class Item extends Model
 
         // Customize the data array...
 
-        return array('id' => $array['id'],'title' => $array['title']);
+        return ['title' => $array['title']];
     }
 }

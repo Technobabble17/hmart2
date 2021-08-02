@@ -3,32 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use App\Scopes\OwnedByUser;
 
-class BrowseController extends Controller
+class BrowseController extends AbstractItemController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    protected function getItemBuilder() : Builder
     {
-        $items = Item::withoutGlobalScope(OwnedByUser::class)->browse()->get();     //stores a query builder for the model in the variable/$itemsQuery  // browse() is calling the Item scopeBrowse()
-        return view('items.index', ["items" => $items]);
+        dd(Auth::id());
+        dd(Item::browse(Auth::id()));
+        return Item::browse();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($item)
-    {
-        $item = Item::withoutGlobalScope(OwnedByUser::class)->findOrFail($item);
-        return view('items.show', ["item" => $item]);
-    }
+    // public function search(Request $request)
+    // {
+    //     $items = Item::search($request->search)->query(function($builder){
+    //         $builder->withoutGlobalScope(OwnedByUser::class);
+    //     })->get();
+    //     // dd($items);
+
+    //     return view('items.search', ["items" => $items]);
+    // }
 
 }
